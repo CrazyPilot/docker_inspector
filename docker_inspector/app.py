@@ -1,13 +1,10 @@
-import subprocess
-from rich.text import Text
-
 from textual.app import App, ComposeResult
 from textual.screen import Screen
 from textual.containers import ScrollableContainer
 from textual.widgets import Header, Footer, Button, Static, DataTable, Log, Label
 from textual.reactive import reactive
 
-from .widgets.container_list import ContainerList
+from docker_inspector.widgets.container_list import ContainerList
 
 
 class TestScreen(Screen):
