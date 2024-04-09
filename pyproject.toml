@@ -1,12 +1,16 @@
 [tool.poetry]
 name = "docker-inspector"
-version = "0.1.0"
+version = "0.1.2"
 description = ""
 authors = ["antonio <mr.antonsilin@gmail.com>"]
 readme = "README.md"
 packages = [
     { include = "docker_inspector"},
 ]
+
+
+[tool.poetry.scripts]
+docker-inspector = 'docker_inspector.app:start'
 
 
 [tool.poetry.dependencies]

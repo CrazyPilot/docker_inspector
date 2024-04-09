@@ -43,6 +43,9 @@ class DockerInspectorApp(App):
         self.dark = not self.dark
 
 
-if __name__ == "__main__":
+def start():
     app = DockerInspectorApp()
     app.run()
+
+if __name__ == "__main__":
+    start()
