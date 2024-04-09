@@ -10,17 +10,6 @@ from textual.reactive import reactive
 from widgets.container_list import ContainerList
 
 
-CAPTION = """
-  _____             _               _____                           _             
- |  __ \           | |             |_   _|                         | |            
- | |  | | ___   ___| | _____ _ __    | |  _ __  ___ _ __   ___  ___| |_ ___  _ __ 
- | |  | |/ _ \ / __| |/ / _ \ '__|   | | | '_ \/ __| '_ \ / _ \/ __| __/ _ \| '__|
- | |__| | (_) | (__|   <  __/ |     _| |_| | | \__ \ |_) |  __/ (__| || (_) | |   
- |_____/ \___/ \___|_|\_\___|_|    |_____|_| |_|___/ .__/ \___|\___|\__\___/|_|   
-                                                   | |                            
-                                                   |_|                            
-"""
-
 class TestScreen(Screen):
     def compose(self) -> ComposeResult:
         yield Header()
@@ -41,7 +30,6 @@ class DockerInspectorApp(App):
         yield Header()
         yield Footer()
         yield ScrollableContainer(
-            Label(CAPTION),
             ContainerList()
         )
 

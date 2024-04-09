@@ -4,7 +4,7 @@ from rich.text import Text
 from textual.app import App, ComposeResult
 from textual.screen import Screen
 from textual.containers import ScrollableContainer, Vertical, Horizontal
-from textual.widgets import Header, Footer, Button, Static, DataTable, Log, Label, Select
+from textual.widgets import Header, Footer, Button, Static, DataTable, Log, Label, Select, Collapsible, SelectionList
 from textual.reactive import reactive
 
 
@@ -14,19 +14,23 @@ class ContainerList(Static):
     containers = reactive([])
 
     def compose(self) -> ComposeResult:
+        selections = [("First", 1), ("Second", 2)]
+
         yield Vertical(
-            DataTable(cursor_type='row'),
             Horizontal(
                 Button("Refresh", id="refresh", variant="primary"),
                 Select(
                     [('Running', 'up'), ('Exited', 'exited')],
-                    prompt='All projects', id='select_project'),
-                )
-            )
+                    prompt='All projects', id='select_project'
+                ),
+                classes="top-menu"
+            ),
+            DataTable(cursor_type='row', fixed_columns=1),
+        )
 
     def on_mount(self) -> None:
         table = self.query_one(DataTable)
-        table.add_columns("Name", "Status", "Open ports")
+        table.add_columns("Name", "Status", "Open ports", "Networks", "Log size", "CPU", "Memory", "IO")
 
         # self.update_interval = self.set_interval(10, self.update_containers)
         self.refresh_data()
@@ -62,7 +66,12 @@ class ContainerList(Static):
                 rich_ports.append(_port, style="red" if '0.0.0.0:' in _port else '')
                 if i < len(open_ports) - 1:
                     rich_ports.append(", ")
-            new_containers.append([name, status, rich_ports])
+            new_containers.append({
+                'id': cid,
+                'name': name,
+                'status': status,
+                'open_ports': rich_ports,
+            })
 
         self.containers = new_containers
 
@@ -70,4 +79,4 @@ class ContainerList(Static):
         table = self.query_one(DataTable)
         table.clear()
         for row in self.containers:
-            table.add_row(*row)
+            table.add_row(row['name'], row['status'], row['open_ports'])
