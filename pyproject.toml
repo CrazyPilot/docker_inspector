@@ -4,6 +4,10 @@ version = "0.1.0"
 description = ""
 authors = ["antonio <mr.antonsilin@gmail.com>"]
 readme = "README.md"
+packages = [
+    { include = "docker_inspector"},
+]
+
 
 [tool.poetry.dependencies]
 python = "^3.9"
