@@ -20,7 +20,7 @@ class ContainerList(Static):
     def compose(self) -> ComposeResult:
         selections = [("First", 1), ("Second", 2)]
 
-        yield Vertical(
+        yield ScrollableContainer(
             Horizontal(
                 Button("Refresh", id="refresh", variant="primary"),
                 Select(

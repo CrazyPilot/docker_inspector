@@ -3,11 +3,11 @@ from rich.text import Text
 
 from textual.app import App, ComposeResult
 from textual.screen import Screen
-from textual.containers import ScrollableContainer, Horizontal
+from textual.containers import ScrollableContainer
 from textual.widgets import Header, Footer, Button, Static, DataTable, Log, Label
 from textual.reactive import reactive
 
-from widgets.container_list import ContainerList
+from .widgets.container_list import ContainerList
 
 
 class TestScreen(Screen):
@@ -29,9 +29,7 @@ class DockerInspectorApp(App):
         """Create child widgets for the app."""
         yield Header()
         yield Footer()
-        yield ScrollableContainer(
-            ContainerList()
-        )
+        yield ContainerList()
 
     def action_refresh(self) -> None:
         """An action to refresh the container list."""
@@ -43,9 +41,9 @@ class DockerInspectorApp(App):
         self.dark = not self.dark
 
 
-def start():
+def run():
     app = DockerInspectorApp()
     app.run()
 
 if __name__ == "__main__":
-    start()
+    run()

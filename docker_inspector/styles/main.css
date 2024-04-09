@@ -1,11 +1,22 @@
+Header {
+  margin-bottom: 1;
+}
+
+Footer {
+  margin-top: 1;
+}
+
+ContainerList {
+  height: 1fr;
+}
+
 .top-menu {
   height: 3;
-  margin: 1 0;
+  /*margin: 1 0;*/
 }
 
 
 DataTable {
-  margin-top: 1;
-  margin-bottom: 1;
+  margin: 1 0;
   height: auto;
 }
