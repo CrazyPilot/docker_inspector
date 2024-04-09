@@ -1,13 +1,6 @@
-Header {
-  margin-bottom: 1;
-}
-
-Footer {
-  margin-top: 1;
-}
-
 ContainerList {
   height: 1fr;
+  margin: 1 0;
 }
 
 .top-menu {
