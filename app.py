@@ -19,7 +19,7 @@ class TestScreen(Screen):
 
 class DockerInspectorApp(App):
     TITLE = "Docker Inspector"
-    CSS_PATH = 'styles/main.tcss'
+    CSS_PATH = 'styles/main.css'
     BINDINGS = [
         ("r", "refresh", "Refresh"),
         ("d", "toggle_dark", "Toggle dark mode"),
