@@ -4,7 +4,7 @@ from textual.containers import ScrollableContainer
 from textual.widgets import Header, Footer, Button, Static, DataTable, Log, Label
 from textual.reactive import reactive
 
-from docker_inspector.widgets.container_list import ContainerList
+from .widgets.container_list import ContainerList
 
 
 class TestScreen(Screen):
@@ -41,6 +41,7 @@ class DockerInspectorApp(App):
 def run():
     app = DockerInspectorApp()
     app.run()
+
 
 if __name__ == "__main__":
     run()
