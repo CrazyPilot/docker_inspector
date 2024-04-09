@@ -111,7 +111,7 @@ class ContainerList(Static):
                     elif out_ip in ['127.0.0.1', 'localhost']:
                         open_ports.append(Text(f"l:{out_port}->{inner}", style="green"))
                     else:
-                        open_ports.append(Text(f"{out_ip}:{out_port}->{inner}"))
+                        open_ports.append(Text(f"{out_ip}:{out_port}->{inner}", style="orange"))
             container_info['open_ports'] = Text(", ").join(open_ports)
 
             # networks
