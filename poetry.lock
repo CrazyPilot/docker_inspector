@@ -111,6 +111,21 @@ files = [
 frozenlist = ">=1.1.0"
 
 [[package]]
+name = "antonio-py-dynamic-version"
+version = "0.1.4"
+description = "Dynamically increase package version"
+optional = false
+python-versions = "^3.8"
+files = []
+develop = false
+
+[package.source]
+type = "git"
+url = "https://bitbucket.org/asilin/antonio-py-dynamic-version.git"
+reference = "HEAD"
+resolved_reference = "2debc12c580a4861d097dffc6e956d234e1baf84"
+
+[[package]]
 name = "async-timeout"
 version = "4.0.3"
 description = "Timeout context manager for asyncio programs"
@@ -703,4 +718,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "888327ffc65e659c042a9a081e56bb0c8042e18ea4b3c65ffa671c7eed714c42"
+content-hash = "5ca2a7db0a04f4db85a81463d8e263c2dee597c1dd676d7c35cceb883d408fa6"
