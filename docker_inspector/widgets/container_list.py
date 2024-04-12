@@ -7,7 +7,7 @@ from textual import log
 from textual.app import App, ComposeResult
 from textual.screen import Screen
 from textual.containers import ScrollableContainer, Vertical, Horizontal
-from textual.widgets import Header, Footer, Button, Static, DataTable, Log, Label, Select, Collapsible, SelectionList
+from textual.widgets import Header, Footer, Button, Static, DataTable, Log, Label, Select, Collapsible, SelectionList, Placeholder
 from textual.reactive import reactive
 
 
@@ -18,9 +18,20 @@ class ContainerList(Static):
     projects = reactive([])
 
     def compose(self) -> ComposeResult:
-        selections = [("First", 1), ("Second", 2)]
 
-        yield ScrollableContainer(
+        # yield ScrollableContainer(
+        #     Horizontal(
+        #         Button("Refresh", id="refresh", variant="primary"),
+        #         Select(
+        #             [],
+        #             prompt='All projects', id='select_project'
+        #         ),
+        #         classes="top-menu"
+        #     ),
+        #     DataTable(cursor_type='row', fixed_columns=1),
+        #     Placeholder("TODO: Volumes", id="volumes")
+        # )
+        yield Vertical(
             Horizontal(
                 Button("Refresh", id="refresh", variant="primary"),
                 Select(
@@ -29,9 +40,10 @@ class ContainerList(Static):
                 ),
                 classes="top-menu"
             ),
-            DataTable(cursor_type='row', fixed_columns=1),
-            Button("Start", id="start", variant="primary"),
+            DataTable(cursor_type='row', fixed_columns=1)
         )
+
+        # yield Placeholder("...", id="volumes")
 
     def on_mount(self) -> None:
         self.refresh_data()
@@ -158,7 +170,10 @@ class ContainerList(Static):
                 if project_filter != Select.BLANK:
                     del _row[1] # remove project column
                 table.add_row(*_row)
-        table.styles.height = table.row_count + 2
+        print(table.row_count + 2)
+        print(len(self.containers) + 2)
+        # table.styles.height = len(self.containers) + 2
+        table.styles.height = 25
 
     def watch_containers(self, containers: list[dict[str, str]]) -> None:
         self.refresh_table()

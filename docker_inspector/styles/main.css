@@ -1,7 +1,3 @@
-ContainerList {
-  height: 1fr;
-  margin: 1 0;
-}
 
 .top-menu {
   height: 3;
@@ -11,5 +7,10 @@ ContainerList {
 
 DataTable {
   margin: 1 0;
-  height: auto;
+  height: 1fr;
+}
+
+
+#volumes {
+  height: 100;
 }

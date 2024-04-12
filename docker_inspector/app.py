@@ -1,17 +1,17 @@
 from textual.app import App, ComposeResult
 from textual.screen import Screen
 from textual.containers import ScrollableContainer
-from textual.widgets import Header, Footer, Button, Static, DataTable, Log, Label
+from textual.widgets import Header, Footer, Button, Static, DataTable, Log, Label, TabbedContent, TabPane, Placeholder
 from textual.reactive import reactive
 
 from .widgets.container_list import ContainerList
 
 
-class TestScreen(Screen):
-    def compose(self) -> ComposeResult:
-        yield Header()
-        yield Footer()
-        yield ScrollableContainer(Static("Hello, world!"))
+# class TestScreen(Screen):
+#     def compose(self) -> ComposeResult:
+#         yield Header()
+#         yield Footer()
+#         yield ScrollableContainer(Static("Hello, world!"))
 
 
 class DockerInspectorApp(App):
@@ -26,7 +26,11 @@ class DockerInspectorApp(App):
         """Create child widgets for the app."""
         yield Header()
         yield Footer()
-        yield ContainerList()
+        with TabbedContent():
+            with TabPane("Containers"):
+                yield ContainerList()
+            with TabPane("Volumes"):
+                yield Placeholder("TODO: Volumes", id="volumes")
 
     def action_refresh(self) -> None:
         """An action to refresh the container list."""
