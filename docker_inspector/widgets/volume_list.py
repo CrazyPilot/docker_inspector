@@ -4,7 +4,7 @@ from textual.widgets import Header, Footer, Button, Static, DataTable, Log, Labe
 from textual.reactive import reactive
 
 
-class ContainerList(Static):
+class VolumeList(Static):
     """A table to display container information."""
 
     def compose(self) -> ComposeResult:
@@ -18,22 +18,17 @@ class ContainerList(Static):
     #     table = self.query_one(DataTable)
     #     table.sort(event.column_key)
 
-    def refresh_data(self, containers, filter_project) -> None:
+    def refresh_data(self, volumes, filter_project) -> None:
         table = self.query_one(DataTable)
         table.clear(columns=True)
-        _columns = ["Name", "Project", "Status", "Open ports", "Networks",
-                    "Log size", "Restart",
-                    # "CPU %", "Memory %", "Memory", "Net IO", "Disk IO", "PIDs"
-                    ]
+        _columns = ["Name", "Project", "Container"]
         if filter_project:
             del _columns[1]  # remove project column
         table.add_columns(*_columns)
-        for row in containers:
-            if not filter_project or row['project'] == filter_project:
+        for row in volumes:
+            if not filter_project or filter_project in row['projects']:
                 _row = [
-                    row['name'], row['project'], row['status'], row['open_ports'],
-                    row['networks'], row['log_size'], row['restart_policy'],
-                    # row['cpu'], row['mem_perc'], row['mem'], row['net_io'], row['block_io'], row['pids']
+                    row['name'], ', '.join(row['projects']), ', '.join(row['containers'])
                 ]
                 if filter_project:
                     del _row[1]  # remove project column

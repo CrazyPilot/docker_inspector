@@ -29,7 +29,9 @@ def get_info():
     #         'pids': pids
     #     }
 
-    new_containers = []
+    containers = []
+    volume_to_containers = {}  # volume name -> list of containers
+    volume_to_projects = {}  # volume name -> list of projects
     projects = set()
     for line in result.stdout.splitlines():
         container_id, name, status, ports = line.split("|")
@@ -66,6 +68,12 @@ def get_info():
                     open_ports.append(Text(f"{out_ip}:{out_port}->{inner}", style="orange"))
         container_info['open_ports'] = Text(", ").join(open_ports)
 
+        # Volumes
+        for _mount in result_js['Mounts']:
+            if _mount['Type'] == 'volume':
+                volume_to_containers.setdefault(_mount['Name'], []).append(name)
+                volume_to_projects.setdefault(_mount['Name'], []).append(project)
+
         # networks
         networks = ', '.join(result_js['NetworkSettings']['Networks'].keys())
         container_info['networks'] = networks
@@ -82,8 +90,23 @@ def get_info():
         restart_policy = result_js['HostConfig']['RestartPolicy']['Name']
         container_info['restart_policy'] = restart_policy
 
-        new_containers.append(container_info)
+        containers.append(container_info)
 
-    new_containers.sort(key=lambda x: x['name'])
+    containers.sort(key=lambda x: x['name'])
 
-    return sorted(projects), new_containers
+    #######
+    volumes = []
+    try:
+        cmd = "docker volume ls --format \"{{.Name}}\""
+        result = subprocess.run(cmd, check=True, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    except subprocess.CalledProcessError as e:
+        raise Exception(e.stderr)
+    for line in result.stdout.splitlines():
+        volume_info = {
+            'name': line,
+            'containers': volume_to_containers.get(line, []),
+            'projects': volume_to_projects.get(line, [])
+        }
+        volumes.append(volume_info)
+
+    return sorted(projects), containers, volumes

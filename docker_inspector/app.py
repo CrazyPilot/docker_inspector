@@ -10,6 +10,7 @@ from textual.widgets import Header, Footer, Button, DataTable, Log, Label, Tabbe
 from textual.reactive import reactive
 
 from .widgets.container_list import ContainerList
+from .widgets.volume_list import VolumeList
 from .utils.get_info import get_info
 
 
@@ -49,16 +50,21 @@ class DockerInspectorApp(App):
             with TabPane("Containers"):
                 yield ContainerList()
             with TabPane("Volumes"):
-                yield Placeholder("TODO: Volumes", id="volumes")
+                # yield Placeholder("Volumes", id="volumes")
+                yield VolumeList()
 
     def action_refresh(self) -> None:
-        self.projects, self.containers = get_info()
+        self.projects, self.containers, self.volumes = get_info()
+        print(self.volumes)
 
         select = self.query_one('#select_project', Select)
         select.set_options([(p, p) for p in self.projects])
 
         container_list = self.query_one(ContainerList)
         container_list.refresh_data(self.containers, self.filter_project)
+
+        volume_list = self.query_one(VolumeList)
+        volume_list.refresh_data(self.volumes, self.filter_project)
 
     def action_toggle_dark(self) -> None:
         """An action to toggle dark mode."""
@@ -77,6 +83,9 @@ class DockerInspectorApp(App):
 
             container_list = self.query_one(ContainerList)
             container_list.refresh_data(self.containers, self.filter_project)
+
+            volume_list = self.query_one(VolumeList)
+            volume_list.refresh_data(self.volumes, self.filter_project)
 
 
 def run():
