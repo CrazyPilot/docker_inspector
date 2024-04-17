@@ -30,6 +30,6 @@ Run locally:
  - `textual console -x EVENT -x DEBUG`
  - `textual run --dev docker_inspector.app:run`
 
-Pyblish:
+Publish:
 
 `poetry publish --build`

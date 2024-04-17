@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "docker-inspector"
-version = "0.1.12"  # set by antonio-py-dynamic-version
+version = "0.1.13"  # set by antonio-py-dynamic-version
 description = ""
 authors = ["antonio <mr.antonsilin@gmail.com>"]
 readme = "README.md"
