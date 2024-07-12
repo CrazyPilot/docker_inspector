@@ -15,13 +15,19 @@
                  |_|                        
 ```
 
+# Installation
 
+Install pipx:
+```shell
+apt install pipx
+pipx ensurepath
+```
 
-
-
-
-
-
+Install docker-inspector via pipx:
+```shell
+pipx install docker-inspector
+dinspect
+```
 
 # Development
 
